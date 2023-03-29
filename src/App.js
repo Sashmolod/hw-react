@@ -1,25 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+//import shortid from "shortid";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React!!!
-        </a>
-      </header>
-    </div>
-  );
+import Hw1 from "./hw-1/Hw-1";
+import Hw2 from "./hw-2/Hw-2";
+
+class App extends Component {
+  render() {
+    return (
+      <>
+      <Hw1 />
+      <Hw2 />
+      </>
+    );
+  }
 }
 
 export default App;

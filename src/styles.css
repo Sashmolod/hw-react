@@ -1,0 +1,17 @@
+body {
+  margin: 0 auto;
+  background-color: white;
+  color: black;
+  line-height: 1.5;
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: center;
+  height: 100vh;
+}
+
+img {
+  max-width: 50%;
+  height: auto;
+}
+
+
