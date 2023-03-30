@@ -16,6 +16,20 @@ class Phonebook extends Component {
   };
 
   addContact = newContact => {
+    const existingContactName = this.state.contacts.some(
+      contact => contact.name === newContact.name
+    );
+    const existingContactNumber = this.state.contacts.some(
+      contact => contact.number === newContact.number
+    );
+    if (existingContactName) {
+      alert('Контакт с таким именем уже существует!');
+      return;
+    }
+    if (existingContactNumber) {
+      alert('Контакт с таким номером уже существует!');
+      return;
+    }
     this.setState(prevState => ({
       contacts: [newContact, ...prevState.contacts],
     }));
