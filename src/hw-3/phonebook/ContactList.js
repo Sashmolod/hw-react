@@ -10,7 +10,7 @@ class ContactList extends Component {
           <li key={id} className="valueli">
             {name} : {number}
             <Button variant="outlined" color="error" onClick={() => deleteContact(id)}>
-              Удалить
+              Delete
             </Button>
           </li>
         ))}

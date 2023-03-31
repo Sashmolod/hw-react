@@ -2,53 +2,59 @@ import React, { Component } from "react";
 import ContactForm from "./ContactForm";
 import ContactList from "./ContactList";
 import Filter from "./Filter";
+import { checkNewContact } from "./Utils";
 import "./Styles.css";
+import contactsApi from "../../services/contacts-api";
 
 class Phonebook extends Component {
   state = {
-    contacts: [
-      { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
-      { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
-      { id: "id-3", name: "Eden Clements", number: "645-17-79" },
-      { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
-    ],
+    contacts: [],
     filter: "",
   };
 
+  componentDidMount() {
+    contactsApi
+      .fetchContacts()
+      .then(contacts => this.setState({ contacts }))
+      .catch(error => console.log(error));
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      //console.log("Обновилось поле contacts");
+      localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
+    }
+  }
+
   addContact = newContact => {
-    const existingContactName = this.state.contacts.some(
-      contact => contact.name === newContact.name
-    );
-    const existingContactNumber = this.state.contacts.some(
-      contact => contact.number === newContact.number
-    );
-    if (existingContactName) {
-      alert('Контакт с таким именем уже существует!');
+    if (!checkNewContact(this.state.contacts, newContact)) {
+      alert("Контакт с таким именем или номером уже существует!");
       return;
     }
-    if (existingContactNumber) {
-      alert('Контакт с таким номером уже существует!');
-      return;
-    }
-    this.setState(prevState => ({
-      contacts: [newContact, ...prevState.contacts],
-    }));
+    contactsApi.addContact(newContact).then(ncontact => {
+      this.setState(({ contacts }) => ({
+        contacts: [...contacts, ncontact],
+      }));
+    });
   };
 
   deleteContact = contactId => {
-    this.setState(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
-    }));
+    contactsApi.deleteContact(contactId).then(() => {
+      this.setState(({ contacts }) => ({
+        contacts: contacts.filter(({ id }) => id !== contactId),
+      }));
+    });
   };
 
   contactCompleted = contactId => {
-    this.setState(({ contacts }) => ({
-      contacts: contacts.map(contact =>
-        contact.id === contactId
-          ? { ...contact, completed: !contact.completed }
-          : contact,
-      ),
-    }));
+    contactsApi.updateContact(contactId)
+      .then((updatedContact) => {
+        this.setState(({ contacts }) => ({
+          contacts: contacts.map(contact =>
+            contact.id === updatedContact.id ? updatedContact : contact,
+          ),
+        }));
+      });
   };
 
   filterContact = e => {
@@ -63,10 +69,6 @@ class Phonebook extends Component {
       contact.name.toLowerCase().includes(normalizedFilter),
     );
   };
-
-  componentDidUpdate(Prevprops, prevStatet) {
-
-  }
 
   render() {
     const { filter } = this.state;

@@ -1,0 +1,39 @@
+{
+  "contacts": [
+    {
+      "id": "id-1",
+      "name": "Rosie Simpson",
+      "number": "459-12-56"
+    },
+    {
+      "id": "id-2",
+      "name": "Hermione Kline",
+      "number": "443-89-12"
+    },
+    {
+      "id": "id-3",
+      "name": "Eden Clements",
+      "number": "645-17-79"
+    },
+    {
+      "id": "id-4",
+      "name": "Annie Copeland",
+      "number": "227-91-26"
+    },
+    {
+      "id": "I23TBiHzA7MC_J5pn18qD",
+      "name": "Mango",
+      "number": "555-55-55"
+    },
+    {
+      "id": "Lt9oVf4aMRHWktYcimYDI",
+      "name": "Trid",
+      "number": "222-22-22"
+    },
+    {
+      "id": "ExNzHUH8xLF3Z17n8QmRh",
+      "name": "Pity",
+      "number": "777-77-11"
+    }
+  ]
+}

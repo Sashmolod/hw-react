@@ -19,9 +19,7 @@ class ContactForm extends Component {
     const id = nanoid();
     const newContact = { id, name, number };
     this.props.addContact(newContact);
-    this.setState({ name: "" });
-    this.setState({ number: "" });
-    this.setState({ undefined: "" });
+    this.setState({ name: "", number: "", undefined: "" });
   };
 
   render() {
